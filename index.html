@@ -89,7 +89,7 @@
     </div>
 
     <div id="opening-modal">
-        <p id="opening-message">Welcome to the Untitled Scifi Western Pre-Adventure! Your goal is to interact with various elements, hopefully inspiring you to overcome design obstacles in the creation of your untitled scifi Western campaign setting. Be careful not to lose all motivation!</p>
+        <p id="opening-message">Welcome to the Untitled Scifi Western Pre-Adventure! Your goal is to interact with various elements in this concept art, hopefully inspiring you to overcome design obstacles in the creation of your untitled scifi Western campaign setting. Be careful not to lose all motivation!</p>
         <button id="start-btn" class="btn">Start</button>
     </div>
 
@@ -103,16 +103,16 @@
         let bg;
         let motivation = 5;
         let areas = [
-            {x: 198, y: 543, w: 240, h: 320, message: "You clicked on Character 1!", increaseText: "Motivate Yourself", decreaseText: "Doubt Yourself", visible: true},
-            {x: 575, y: 425, w: 263, h: 448, message: "Character 2 says hi!", increaseText: "Embrace Challenge", decreaseText: "Take a Break", visible: true},
-            {x: 949, y: 417, w: 141, h: 298, message: "Character 3 is intrigued.", increaseText: "Step Forward", decreaseText: "Hesitate", visible: true},
-            {x: 1106, y: 544, w: 125, h: 171, message: "Character 4 is mysterious.", increaseText: "Investigate", decreaseText: "Back Away", visible: true},
-            {x: 1253, y: 515, w: 164, h: 342, message: "Character 5 looks strong.", increaseText: "Engage", decreaseText: "Avoid", visible: true},
-            {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown.", increaseText: "Explore", decreaseText: "Retreat", visible: true},
-            {x: 700, y: 50, w: 65, h: 50, message: "A high vantage point.", increaseText: "Climb", decreaseText: "Stay Grounded", visible: true},
-            {x: 445, y: 425, w: 125, h: 165, message: "Storefront 1 has goods for sale.", increaseText: "Browse", decreaseText: "Ignore", visible: true},
-            {x: 1000, y: 95, w: 100, h: 250, message: "Storefront 2 is closed.", increaseText: "Knock", decreaseText: "Walk Away", visible: true},
-            {x: 500, y: 315, w: 130, h: 75, message: "Storefront 3 is welcoming you.", increaseText: "Enter", decreaseText: "Decline", visible: true}
+            {x: 198, y: 543, w: 240, h: 320, message: "A human sitting nearby, the only one in fact, appears distracted, lost in thought. Maybe he's pondering the tensions of racial anxieties provoked in both scifi and Western settings, especially given ChatGPT seems to have preferred robots generated in the foreground. You know you've spent countless hours navigating how to address this topic appropriately. How do you feel?", increaseText: "You've got this!", decreaseText: "Doubt yourself yet again", visible: true},
+            {x: 575, y: 425, w: 263, h: 448, message: "A robot sheriff meets you at the entrance to the town, gun in hand. Guns, although necessary for the setting, have become a headache for balancing in the source ruleset you're using.", increaseText: "Continue balancing", decreaseText: "Guns are just this world's magic", visible: true},
+            {x: 949, y: 417, w: 141, h: 298, message: "A less anthropomorphic robot stands tall, possibly for security? You've felt melee combat deserves a place in this campaign. Maybe that's easier for machinations such as the one standing before you.", increaseText: "No! Plasma swords are cool", decreaseText: "Worry about Naruto running through bullets/lasers", visible: true},
+            {x: 1106, y: 544, w: 125, h: 171, message: "A seated anthropomorphic robot appears to ponder, much like the human nearby. Androids that resemble humans have often come to mind as a point to blur the boundary between them and robots in your world. Again, as with the human, how do you avoid clumsy racial metaphors?", increaseText: "The boundary must be blurred", decreaseText: "I'm having second thoughts...", visible: true},
+            {x: 1253, y: 515, w: 164, h: 342, message: "ChatGPT really wanted to give you a certain copyrighted character from a particularly litigious company here and fought you on removing it, so you've had to put a placeholder here. While tropes are sometimes useful, how do you avoid being derivative?", increaseText: "Through playtest feedback, of course", decreaseText: "Nothing is original", visible: true},
+            {x: 635, y: 270, w: 220, h: 96, message: "In the distance, an inviting vista beckons you forward...until you remember you've sketched out little beyond specific instances. Beyond those hills are actually, well, nothing.", increaseText: "One brick at a time", decreaseText: "This is overwhelming", visible: true},
+            {x: 700, y: 50, w: 65, h: 50, message: "You explicitly positioned the entirety of your setting on one planet. No space travel here; it tends to become too much the focus when present. But what about your players' wishes?", increaseText: "The depth on-planet and novelty will appeal", decreaseText: "They'll just homebrew space travel", visible: true},
+            {x: 445, y: 425, w: 125, h: 165, message: "A saloon seems particularly busy this time of evening. You're almost certain they will become a natural starting point for adventures, much like inns in fantasy settings.", increaseText: "Absolutely! A strength, not a weakness", decreaseText: "Unless players just start constant bar fights and shootouts", visible: true},
+            {x: 1000, y: 95, w: 100, h: 250, message: "Unsure what ChatGPT was going for with this sign, you're nonetheless intrigued. What wonders does a Dadster store hold?", increaseText: "Every table's session is their own", decreaseText: "Nothing but derailing player nonsense", visible: true},
+            {x: 500, y: 315, w: 130, h: 75, message: "Ah, the local blacksmith. While some tabletop RPG tropes are unavoidable and even useful, what new ones might you be able to introduce?", increaseText: "The sky's the limit!", decreaseText: "We can't get too experimental now", visible: true}
         ];
         let isModalOpen = false;
 
