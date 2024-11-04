@@ -19,40 +19,46 @@
         }
         
         /* Modal styling, positioned at the top center of the canvas */
-        #modal {
+        #modal, #opening-modal {
             display: none;
             position: absolute;
             top: 50px;
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
+            padding: 30px;
             border-radius: 8px;
             text-align: center;
-            max-width: 300px;
+            width: 400px; /* Increased width */
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-        #modal p {
+        #modal p, #opening-modal p {
             margin: 0 0 20px;
+            font-size: 18px; /* Larger font for readability */
         }
-        #close-btn {
+        .btn {
             background-color: #008cba;
             color: #fff;
             padding: 10px 20px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px; /* Slightly larger button text */
         }
-        #close-btn:hover {
+        .btn:hover {
             background-color: #005f5f;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
+    <div id="opening-modal">
+        <p id="opening-message">Welcome to the Untitled Sci-fi Western Pre-Adventure! Your goal is to explore the environment, interact with characters and objects, and uncover clues about the mysterious world you’re in. Click Start to begin!</p>
+        <button id="start-btn" class="btn">Start</button>
+    </div>
     <div id="modal">
         <p id="modal-message">Message</p>
-        <button id="close-btn">Close</button>
+        <button id="close-btn" class="btn">Close</button>
     </div>
     <script>
         let bg; // Variable to store the background image
@@ -66,7 +72,7 @@
         let pathArea = {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown."};
         let storefront1Area = {x: 445, y: 425, w: 125, h: 165, message: "Storefront 1 has goods for sale."};
         let storefront2Area = {x: 1000, y: 95, w: 100, h: 250, message: "Storefront 2 is closed."};
-        let storefront3Area = {x: 500, y: 315, w: 135, h: 75, message: "Storefront 3 is welcoming you."};
+        let storefront3Area = {x: 500, y: 315, w: 130, h: 75, message: "Storefront 3 is welcoming you."};
 
         let isModalOpen = false;
 
@@ -77,7 +83,17 @@
         function setup() {
             createCanvas(1500, 900);
 
-            // Close modal on button click
+            // Show the opening modal on game start
+            document.getElementById('opening-modal').style.display = 'flex';
+            isModalOpen = true;
+
+            // Start button closes the opening modal
+            document.getElementById('start-btn').onclick = function() {
+                document.getElementById('opening-modal').style.display = 'none';
+                isModalOpen = false;
+            };
+
+            // Close button for interaction modals
             document.getElementById('close-btn').onclick = function() {
                 document.getElementById('modal').style.display = 'none';
                 isModalOpen = false;
@@ -93,26 +109,26 @@
             text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates for testing
 
             // Draw transparent rectangles for interactive areas
-            drawRectangle(character1Area, [255, 255, 255, 100]);
-            drawRectangle(character2Area, [255, 255, 255, 100]);
-            drawRectangle(character3Area, [255, 255, 255, 100]);
-            drawRectangle(character4Area, [255, 255, 255, 100]);
-            drawRectangle(character5Area, [255, 255, 255, 100]);
-            drawRectangle(pathArea, [255, 255, 255, 100]);
-            drawRectangle(storefront1Area, [255, 255, 255, 100]);
-            drawRectangle(storefront2Area, [255, 255, 255, 100]);
-            drawRectangle(storefront3Area, [255, 255, 255, 100]);
+            drawRectangle(character1Area, [255, 255, 255, 50]);
+            drawRectangle(character2Area, [255, 255, 255, 50]);
+            drawRectangle(character3Area, [255, 255, 255, 50]);
+            drawRectangle(character4Area, [255, 255, 255, 50]);
+            drawRectangle(character5Area, [255, 255, 255, 50]);
+            drawRectangle(pathArea, [255, 255, 255, 50]);
+            drawRectangle(storefront1Area, [255, 255, 255, 50]);
+            drawRectangle(storefront2Area, [255, 255, 255, 50]);
+            drawRectangle(storefront3Area, [255, 255, 255, 50]);
 
             // Highlight rectangles on hover
-            if (isMouseOverRectangle(character1Area)) drawRectangle(character1Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(character2Area)) drawRectangle(character2Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(character3Area)) drawRectangle(character3Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(character4Area)) drawRectangle(character4Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(character5Area)) drawRectangle(character5Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(pathArea)) drawRectangle(pathArea, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(storefront1Area)) drawRectangle(storefront1Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(storefront2Area)) drawRectangle(storefront2Area, [255, 255, 255, 200]);
-            if (isMouseOverRectangle(storefront3Area)) drawRectangle(storefront3Area, [255, 255, 255, 200]);
+            if (isMouseOverRectangle(character1Area)) drawRectangle(character1Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(character2Area)) drawRectangle(character2Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(character3Area)) drawRectangle(character3Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(character4Area)) drawRectangle(character4Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(character5Area)) drawRectangle(character5Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(pathArea)) drawRectangle(pathArea, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(storefront1Area)) drawRectangle(storefront1Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(storefront2Area)) drawRectangle(storefront2Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(storefront3Area)) drawRectangle(storefront3Area, [255, 255, 255, 100]);
         }
 
         function drawRectangle(area, color) {
@@ -127,7 +143,7 @@
         }
 
         function mousePressed() {
-            // Ignore clicks when the modal is open
+            // Ignore clicks when a modal is open
             if (isModalOpen) return;
 
             if (isMouseOverRectangle(character1Area)) showMessage(character1Area.message);
