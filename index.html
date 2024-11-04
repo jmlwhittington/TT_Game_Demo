@@ -22,7 +22,6 @@
 </head>
 <body>
     <script>
-        let x, y;
         let bg; // Variable to store background image
 
         function preload() {
@@ -31,34 +30,27 @@
 
         function setup() {
             createCanvas(1500, 900);
-            x = width / 2;
-            y = height / 2;
         }
 
         function draw() {
             background(bg); // Display the background image
 
-            // Draw the player circle
-            fill(50, 100, 250);
-            ellipse(x, y, 50, 50);
+            // Display mouse coordinates at the top left corner
+            fill(255); // White color for text
+            textSize(16); // Font size
+            text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates
 
-            // Move the circle with arrow keys
-            if (keyIsDown(LEFT_ARROW)) {
-                x -= 5;
+            // Optionally, draw a small cursor indicator on click
+            if (mouseIsPressed) {
+                fill(255, 0, 0); // Red color for indicator
+                ellipse(mouseX, mouseY, 10, 10); // Draw small circle at click position
             }
-            if (keyIsDown(RIGHT_ARROW)) {
-                x += 5;
-            }
-            if (keyIsDown(UP_ARROW)) {
-                y -= 5;
-            }
-            if (keyIsDown(DOWN_ARROW)) {
-                y += 5;
-            }
+        }
 
-            // Keep the circle within the canvas bounds
-            x = constrain(x, 25, width - 25);
-            y = constrain(y, 25, height - 25);
+        // Optional mousePressed function for further interactivity
+        function mousePressed() {
+            // Placeholder for future interactive elements
+            console.log("Mouse clicked at:", mouseX, mouseY);
         }
     </script>
 </body>
