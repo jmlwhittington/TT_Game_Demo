@@ -19,7 +19,7 @@
         }
 
         /* Modal styling, positioned at the top center of the canvas */
-        #modal, #opening-modal {
+        #modal, #opening-modal, #end-modal {
             display: none;
             position: absolute;
             top: 50px;
@@ -29,12 +29,12 @@
             padding: 30px;
             border-radius: 8px;
             text-align: center;
-            width: 400px; /* Increased width */
+            width: 400px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-        #modal p, #opening-modal p {
+        #modal p, #opening-modal p, #end-modal p {
             margin: 0 0 20px;
-            font-size: 18px; /* Larger font for readability */
+            font-size: 18px;
         }
         .btn {
             background-color: #008cba;
@@ -43,8 +43,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px; /* Slightly larger button text */
-            margin-left: 20px; /* Added space next to button */
+            font-size: 16px;
+            margin-left: 20px;
         }
         .btn:hover {
             background-color: #005f5f;
@@ -99,6 +99,11 @@
         <button id="second-btn" class="btn">Option 2</button>
     </div>
 
+    <div id="end-modal">
+        <p id="end-message">End Message</p>
+        <button id="restart-btn" class="btn">Restart</button>
+    </div>
+
     <script>
         let bg;
         let motivation = 5;
@@ -129,6 +134,10 @@
             document.getElementById('start-btn').onclick = function() {
                 document.getElementById('opening-modal').style.display = 'none';
                 isModalOpen = false;
+            };
+
+            document.getElementById('restart-btn').onclick = function() {
+                location.reload();
             };
         }
 
@@ -165,6 +174,8 @@
                     area.visible = false;
                 }
             });
+
+            checkEndConditions();
         }
 
         function showMessage(area) {
@@ -196,11 +207,28 @@
         function updateMotivation(change) {
             motivation = Math.min(10, Math.max(0, motivation + change));
             updateMotivationDisplay();
+            checkEndConditions();
         }
 
         function updateMotivationDisplay() {
             document.getElementById('motivation-fill').style.width = (motivation * 10) + "%";
             document.getElementById('motivation-label').innerText = `Motivation: ${motivation}/10`;
+        }
+
+        function checkEndConditions() {
+            if (motivation >= 10) {
+                endGame("Congratulations! Maybe you can pull this off sometime next year!");
+            } else if (motivation <= 0) {
+                endGame("As your motivation drops to an all-time low, imposter syndrome takes over. You begin to wonder if you should reconsider future game design.");
+            } else if (areas.every(area => !area.visible)) {
+                endGame("Stalemate. Maybe you'll figure it out by 2030?");
+            }
+        }
+
+        function endGame(message) {
+            document.getElementById('end-message').innerText = message;
+            document.getElementById('end-modal').style.display = 'flex';
+            isModalOpen = true;
         }
     </script>
 </body>
