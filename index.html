@@ -23,6 +23,11 @@
 <body>
     <script>
         let x, y;
+        let bg; // Variable to store background image
+
+        function preload() {
+            bg = loadImage('background.png'); // Load the background image
+        }
 
         function setup() {
             createCanvas(1500, 900);
@@ -31,7 +36,7 @@
         }
 
         function draw() {
-            background(220);
+            background(bg); // Display the background image
 
             // Draw the player circle
             fill(50, 100, 250);
