@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Untitled Scifi Western Pre-Adventure</title>
     <style>
-        /* Center the canvas */
+        /* Center the canvas and its wrapper */
         body {
             display: flex;
             align-items: center;
@@ -14,12 +14,19 @@
             margin: 0;
             background-color: #f0f0f0;
         }
+
+        /* Canvas wrapper to position elements relative to the canvas */
+        #canvas-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
         canvas {
             border: 1px solid #000;
         }
 
         /* Modal styling, positioned at the top center of the canvas */
-        #modal, #opening-modal {
+        .modal {
             display: none;
             position: absolute;
             top: 50px;
@@ -29,13 +36,15 @@
             padding: 30px;
             border-radius: 8px;
             text-align: center;
-            width: 400px; /* Increased width */
+            width: 400px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-        #modal p, #opening-modal p {
+
+        .modal p {
             margin: 0 0 20px;
-            font-size: 18px; /* Larger font for readability */
+            font-size: 18px;
         }
+
         .btn {
             background-color: #008cba;
             color: #fff;
@@ -43,9 +52,10 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px; /* Slightly larger button text */
-            margin-left: 20px; /* Added space next to button */
+            font-size: 16px;
+            margin-left: 20px;
         }
+
         .btn:hover {
             background-color: #005f5f;
         }
@@ -67,89 +77,46 @@
             color: #333;
             font-weight: bold;
         }
+
         #motivation-fill {
             height: 100%;
             background-color: #76c7c0;
             border-radius: 5px;
         }
-        #motivation-label {
-            position: absolute;
-            left: 10px;
-            font-size: 14px;
-            color: #333;
-            font-weight: bold;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
-    <div id="motivation-bar">
-        <span id="motivation-label">Motivation: 5/10</span>
-        <div id="motivation-fill"></div>
-    </div>
-
-    <div id="opening-modal">
-        <p id="opening-message">Welcome to the Untitled Scifi Western Pre-Adventure! Your goal is to interact with various elements, hopefully inspiring you to overcome design obstacles in the creation of your untitled scifi Western campaign setting. Be careful not to lose all motivation!</p>
-        <button id="start-btn" class="btn">Start</button>
-    </div>
-
-    <div id="modal">
-        <p id="modal-message">Message</p>
-        <button id="increase-btn" class="btn">Increase Motivation</button>
-        <button id="decrease-btn" class="btn">Decrease Motivation</button>
+    <div id="canvas-wrapper">
+        <canvas></canvas>
+        <div id="motivation-bar">
+            <span id="motivation-label">Motivation: 5/10</span>
+            <div id="motivation-fill"></div>
+        </div>
     </div>
 
     <script>
-        let bg; // Variable to store the background image
-        let motivation = 5; // Start motivation at 5
+        let bg;
+        let motivation = 5;
         let areas = [
             {x: 198, y: 543, w: 240, h: 320, message: "You clicked on Character 1!", visible: true},
             {x: 575, y: 425, w: 263, h: 448, message: "Character 2 says hi!", visible: true},
             {x: 949, y: 417, w: 141, h: 298, message: "Character 3 is intrigued.", visible: true},
             {x: 1106, y: 544, w: 125, h: 171, message: "Character 4 is mysterious.", visible: true},
-            {x: 1253, y: 515, w: 164, h: 342, message: "Character 5 looks strong.", visible: true},
-            {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown.", visible: true},
-            {x: 700, y: 50, w: 65, h: 50, message: "This path leads somewhere unknown."};
-            {x: 445, y: 425, w: 125, h: 165, message: "Storefront 1 has goods for sale.", visible: true},
-            {x: 1000, y: 95, w: 100, h: 250, message: "Storefront 2 is closed.", visible: true},
-            {x: 500, y: 315, w: 130, h: 75, message: "Storefront 3 is welcoming you.", visible: true}
+            {x: 1253, y: 515, w: 164, h: 342, message: "Character 5 looks strong.", visible: true}
         ];
         let isModalOpen = false;
 
         function preload() {
-            bg = loadImage('background.png'); // Load the background image
+            bg = loadImage('background.png');
         }
 
         function setup() {
-            createCanvas(1500, 900);
-
-            // Show the opening modal on game start
-            document.getElementById('opening-modal').style.display = 'flex';
-            isModalOpen = true;
-
-            // Start button closes the opening modal
-            document.getElementById('start-btn').onclick = function() {
-                document.getElementById('opening-modal').style.display = 'none';
-                isModalOpen = false;
-            };
-
-            // Increase button for motivation
-            document.getElementById('increase-btn').onclick = function() {
-                updateMotivation(1);
-                closeModal();
-            };
-
-            // Decrease button for motivation
-            document.getElementById('decrease-btn').onclick = function() {
-                updateMotivation(-1);
-                closeModal();
-            };
+            createCanvas(1500, 900).parent('canvas-wrapper');
         }
 
         function draw() {
-            background(bg); // Display the background image
-
-            // Update motivation bar fill width and text label
+            background(bg);
             updateMotivationDisplay();
 
             // Draw transparent rectangles for interactive areas
@@ -175,38 +142,55 @@
         }
 
         function mousePressed() {
-            // Ignore clicks when a modal is open
             if (isModalOpen) return;
 
             // Check if any area is clicked
-            areas.forEach(area => {
+            areas.forEach((area, index) => {
                 if (area.visible && isMouseOverRectangle(area)) {
-                    showMessage(area);
-                    area.visible = false; // Make the area disappear after interaction
+                    showMessage(area, index);
+                    area.visible = false;
                 }
             });
         }
 
-        function showMessage(area) {
-            document.getElementById('modal-message').innerText = area.message;
-            document.getElementById('modal').style.display = 'flex';
+        function showMessage(area, index) {
             isModalOpen = true;
+
+            // Create a new modal dynamically
+            const modal = document.createElement('div');
+            modal.classList.add('modal');
+            modal.innerHTML = `<p>${area.message}</p>`;
+
+            // Create Increase and Decrease buttons in random order
+            const buttonOrder = Math.random() > 0.5 ? ['increase', 'decrease'] : ['decrease', 'increase'];
+            buttonOrder.forEach(action => {
+                const btn = document.createElement('button');
+                btn.classList.add('btn');
+                btn.innerText = action === 'increase' ? 'Increase Motivation' : 'Decrease Motivation';
+                btn.onclick = () => {
+                    updateMotivation(action === 'increase' ? 1 : -1);
+                    closeModal(modal);
+                };
+                modal.appendChild(btn);
+            });
+
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function closeModal(modal) {
+            modal.style.display = 'none';
             isModalOpen = false;
+            document.body.removeChild(modal);
         }
 
         function updateMotivation(change) {
-            motivation = Math.min(10, Math.max(0, motivation + change)); // Keep motivation within 0-10
+            motivation = Math.min(10, Math.max(0, motivation + change));
             updateMotivationDisplay();
         }
 
         function updateMotivationDisplay() {
-            // Update the width of the motivation fill bar
             document.getElementById('motivation-fill').style.width = (motivation * 10) + "%";
-            // Update the motivation label text
             document.getElementById('motivation-label').innerText = `Motivation: ${motivation}/10`;
         }
     </script>
