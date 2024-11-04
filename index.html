@@ -24,6 +24,17 @@
     <script>
         let bg; // Variable to store background image
 
+        // Define polygon points for interactive areas
+        let charactersPolygon = [
+            {x: 600, y: 500}, {x: 680, y: 700}, {x: 820, y: 700}, {x: 900, y: 500}
+        ]; // Sample coordinates for a character region
+        let pathPolygon = [
+            {x: 750, y: 700}, {x: 725, y: 800}, {x: 850, y: 900}, {x: 950, y: 800}
+        ]; // Sample coordinates for the path region
+        let storefrontPolygon = [
+            {x: 100, y: 400}, {x: 100, y: 600}, {x: 300, y: 600}, {x: 300, y: 400}
+        ]; // Sample coordinates for a storefront
+
         function preload() {
             bg = loadImage('background.png'); // Load the background image
         }
@@ -40,17 +51,58 @@
             textSize(16); // Font size
             text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates
 
-            // Optionally, draw a small cursor indicator on click
-            if (mouseIsPressed) {
-                fill(255, 0, 0); // Red color for indicator
-                ellipse(mouseX, mouseY, 10, 10); // Draw small circle at click position
+            // Draw transparent polygons for interactive areas
+            drawPolygon(charactersPolygon, [255, 0, 0, 100]); // Red, semi-transparent
+            drawPolygon(pathPolygon, [0, 255, 0, 100]);       // Green, semi-transparent
+            drawPolygon(storefrontPolygon, [0, 0, 255, 100]);  // Blue, semi-transparent
+
+            // Highlight the polygons on hover
+            if (isMouseOverPolygon(charactersPolygon)) {
+                drawPolygon(charactersPolygon, [255, 0, 0, 200]);
+            }
+            if (isMouseOverPolygon(pathPolygon)) {
+                drawPolygon(pathPolygon, [0, 255, 0, 200]);
+            }
+            if (isMouseOverPolygon(storefrontPolygon)) {
+                drawPolygon(storefrontPolygon, [0, 0, 255, 200]);
             }
         }
 
-        // Optional mousePressed function for further interactivity
+        // Helper function to draw a polygon with a specified color
+        function drawPolygon(points, color) {
+            fill(...color);
+            beginShape();
+            points.forEach(point => vertex(point.x, point.y));
+            endShape(CLOSE);
+        }
+
+        // Function to check if the mouse is over a polygon
+        function isMouseOverPolygon(points) {
+            let collision = false;
+            let next = 0;
+            for (let current = 0; current < points.length; current++) {
+                next = (current + 1) % points.length;
+                let vc = points[current];
+                let vn = points[next];
+                if (((vc.y >= mouseY) != (vn.y >= mouseY)) &&
+                    (mouseX <= (vn.x - vc.x) * (mouseY - vc.y) / (vn.y - vc.y) + vc.x)) {
+                    collision = !collision;
+                }
+            }
+            return collision;
+        }
+
+        // Optional mousePressed function for future interactions
         function mousePressed() {
-            // Placeholder for future interactive elements
-            console.log("Mouse clicked at:", mouseX, mouseY);
+            if (isMouseOverPolygon(charactersPolygon)) {
+                console.log("Character area clicked");
+            }
+            if (isMouseOverPolygon(pathPolygon)) {
+                console.log("Path area clicked");
+            }
+            if (isMouseOverPolygon(storefrontPolygon)) {
+                console.log("Storefront area clicked");
+            }
         }
     </script>
 </body>
