@@ -22,18 +22,15 @@
 </head>
 <body>
     <script>
-        let bg; // Variable to store background image
+        let bg; // Variable to store the background image
 
-        // Define polygon points for interactive areas
-        let charactersPolygon = [
-            {x: 600, y: 500}, {x: 680, y: 700}, {x: 820, y: 700}, {x: 900, y: 500}
-        ]; // Sample coordinates for a character region
-        let pathPolygon = [
-            {x: 750, y: 700}, {x: 725, y: 800}, {x: 850, y: 900}, {x: 950, y: 800}
-        ]; // Sample coordinates for the path region
-        let storefrontPolygon = [
-            {x: 100, y: 400}, {x: 100, y: 600}, {x: 300, y: 600}, {x: 300, y: 400}
-        ]; // Sample coordinates for a storefront
+        // Define polygons (rectangular areas) for interactive elements
+        let charactersArea = {x: 580, y: 480, w: 300, h: 400}; // Foreground characters
+        let pathArea = {x: 700, y: 750, w: 200, h: 150}; // Path out of the town
+        let storefrontsArea = [
+            {x: 50, y: 350, w: 250, h: 300},  // Storefront 1 (left side)
+            {x: 1000, y: 350, w: 250, h: 300} // Storefront 2 (right side)
+        ]; // Storefronts
 
         function preload() {
             bg = loadImage('background.png'); // Load the background image
@@ -48,61 +45,54 @@
 
             // Display mouse coordinates at the top left corner
             fill(255); // White color for text
-            textSize(16); // Font size
-            text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates
+            textSize(16);
+            text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates for testing
 
-            // Draw transparent polygons for interactive areas
-            drawPolygon(charactersPolygon, [255, 0, 0, 100]); // Red, semi-transparent
-            drawPolygon(pathPolygon, [0, 255, 0, 100]);       // Green, semi-transparent
-            drawPolygon(storefrontPolygon, [0, 0, 255, 100]);  // Blue, semi-transparent
+            // Draw transparent rectangles for interactive areas
+            drawRectangle(charactersArea, [255, 255, 255, 100]); // White, semi-transparent
+            drawRectangle(pathArea, [200, 200, 200, 100]);       // Gray, semi-transparent
+            storefrontsArea.forEach(area => drawRectangle(area, [255, 255, 255, 100]));
 
-            // Highlight the polygons on hover
-            if (isMouseOverPolygon(charactersPolygon)) {
-                drawPolygon(charactersPolygon, [255, 0, 0, 200]);
+            // Highlight rectangles on hover
+            if (isMouseOverRectangle(charactersArea)) {
+                drawRectangle(charactersArea, [255, 255, 255, 200]);
             }
-            if (isMouseOverPolygon(pathPolygon)) {
-                drawPolygon(pathPolygon, [0, 255, 0, 200]);
+            if (isMouseOverRectangle(pathArea)) {
+                drawRectangle(pathArea, [200, 200, 200, 200]);
             }
-            if (isMouseOverPolygon(storefrontPolygon)) {
-                drawPolygon(storefrontPolygon, [0, 0, 255, 200]);
-            }
-        }
-
-        // Helper function to draw a polygon with a specified color
-        function drawPolygon(points, color) {
-            fill(...color);
-            beginShape();
-            points.forEach(point => vertex(point.x, point.y));
-            endShape(CLOSE);
-        }
-
-        // Function to check if the mouse is over a polygon
-        function isMouseOverPolygon(points) {
-            let collision = false;
-            let next = 0;
-            for (let current = 0; current < points.length; current++) {
-                next = (current + 1) % points.length;
-                let vc = points[current];
-                let vn = points[next];
-                if (((vc.y >= mouseY) != (vn.y >= mouseY)) &&
-                    (mouseX <= (vn.x - vc.x) * (mouseY - vc.y) / (vn.y - vc.y) + vc.x)) {
-                    collision = !collision;
+            storefrontsArea.forEach(area => {
+                if (isMouseOverRectangle(area)) {
+                    drawRectangle(area, [255, 255, 255, 200]);
                 }
-            }
-            return collision;
+            });
         }
 
-        // Optional mousePressed function for future interactions
+        // Helper function to draw a rectangle with a specified color
+        function drawRectangle(area, color) {
+            fill(...color);
+            noStroke();
+            rect(area.x, area.y, area.w, area.h);
+        }
+
+        // Function to check if the mouse is over a rectangle
+        function isMouseOverRectangle(area) {
+            return mouseX > area.x && mouseX < area.x + area.w &&
+                   mouseY > area.y && mouseY < area.y + area.h;
+        }
+
+        // Optional mousePressed function for testing interactions
         function mousePressed() {
-            if (isMouseOverPolygon(charactersPolygon)) {
+            if (isMouseOverRectangle(charactersArea)) {
                 console.log("Character area clicked");
             }
-            if (isMouseOverPolygon(pathPolygon)) {
+            if (isMouseOverRectangle(pathArea)) {
                 console.log("Path area clicked");
             }
-            if (isMouseOverPolygon(storefrontPolygon)) {
-                console.log("Storefront area clicked");
-            }
+            storefrontsArea.forEach((area, index) => {
+                if (isMouseOverRectangle(area)) {
+                    console.log("Storefront " + (index + 1) + " area clicked");
+                }
+            });
         }
     </script>
 </body>
