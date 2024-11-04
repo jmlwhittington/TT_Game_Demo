@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple P5.js Game</title>
+    <style>
+        /* Center the canvas */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        let x, y;
+
+        function setup() {
+            createCanvas(1000, 1000);
+            x = width / 2;
+            y = height / 2;
+        }
+
+        function draw() {
+            background(220);
+
+            // Draw the player circle
+            fill(50, 100, 250);
+            ellipse(x, y, 50, 50);
+
+            // Move the circle with arrow keys
+            if (keyIsDown(LEFT_ARROW)) {
+                x -= 5;
+            }
+            if (keyIsDown(RIGHT_ARROW)) {
+                x += 5;
+            }
+            if (keyIsDown(UP_ARROW)) {
+                y -= 5;
+            }
+            if (keyIsDown(DOWN_ARROW)) {
+                y += 5;
+            }
+
+            // Keep the circle within the canvas bounds
+            x = constrain(x, 25, width - 25);
+            y = constrain(y, 25, height - 25);
+        }
+    </script>
+</body>
+</html>
