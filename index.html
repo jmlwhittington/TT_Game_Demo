@@ -25,12 +25,15 @@
         let bg; // Variable to store the background image
 
         // Define polygons (rectangular areas) for interactive elements
-        let charactersArea = {x: 580, y: 480, w: 300, h: 400}; // Foreground characters
-        let pathArea = {x: 700, y: 750, w: 200, h: 150}; // Path out of the town
-        let storefrontsArea = [
-            {x: 50, y: 350, w: 250, h: 300},  // Storefront 1 (left side)
-            {x: 1000, y: 350, w: 250, h: 300} // Storefront 2 (right side)
-        ]; // Storefronts
+        let character1Area = {x: 198, y: 543, w: 240, h: 320};
+        let character2Area = {x: 570, y: 425, w: 263, h: 448};
+        let character3Area = {x: 949, y: 417, w: 141, h: 298};
+        let character4Area = {x: 1106, y: 544, w: 125, h: 171};
+        let character5Area = {x: 1253, y: 515, w: 164, h: 342};
+        let pathArea = {x: 625, y: 270, w: 220, h: 96};
+        let storefront1Area = x: 350, y: 420, w: 215, h: 42};
+        let storefront2Area = x: 1000, y: 95, w: 100, h: 250};
+        let storefront3Area = x: 500, y: 315, w: 135, h: 60};
 
         function preload() {
             bg = loadImage('background.png'); // Load the background image
@@ -49,22 +52,44 @@
             text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates for testing
 
             // Draw transparent rectangles for interactive areas
-            drawRectangle(charactersArea, [255, 255, 255, 100]); // White, semi-transparent
-            drawRectangle(pathArea, [200, 200, 200, 100]);       // Gray, semi-transparent
-            storefrontsArea.forEach(area => drawRectangle(area, [255, 255, 255, 100]));
+            drawRectangle(character1Area, [255, 255, 255, 100]);
+            drawRectangle(character2Area, [255, 255, 255, 100]);
+            drawRectangle(character3Area, [255, 255, 255, 100]);
+            drawRectangle(character4Area, [255, 255, 255, 100]);
+            drawRectangle(character5Area, [255, 255, 255, 100]);
+            drawRectangle(pathArea, [255, 255, 255, 100]);
+            drawRectangle(storefront1Area, [255, 255, 255, 100]);
+            drawRectangle(storefront2Area, [255, 255, 255, 100]);
+            drawRectangle(storefront3Area, [255, 255, 255, 100]);
 
             // Highlight rectangles on hover
-            if (isMouseOverRectangle(charactersArea)) {
-                drawRectangle(charactersArea, [255, 255, 255, 200]);
+            if (isMouseOverRectangle(character1Area)) {
+                drawRectangle(character1Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(character2Area)) {
+                drawRectangle(character2Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(character3Area)) {
+                drawRectangle(character3Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(character4Area)) {
+                drawRectangle(character4Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(character5Area)) {
+                drawRectangle(character5Area, [255, 255, 255, 200]);
             }
             if (isMouseOverRectangle(pathArea)) {
-                drawRectangle(pathArea, [200, 200, 200, 200]);
+                drawRectangle(pathArea, [255, 255, 255, 200]);
             }
-            storefrontsArea.forEach(area => {
-                if (isMouseOverRectangle(area)) {
-                    drawRectangle(area, [255, 255, 255, 200]);
-                }
-            });
+            if (isMouseOverRectangle(storefront1Area)) {
+                drawRectangle(storefront1Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(storefront2Area)) {
+                drawRectangle(storefront2Area, [255, 255, 255, 200]);
+            }
+            if (isMouseOverRectangle(storefront3Area)) {
+                drawRectangle(storefront3Area, [255, 255, 255, 200]);
+            }
         }
 
         // Helper function to draw a rectangle with a specified color
@@ -82,17 +107,33 @@
 
         // Optional mousePressed function for testing interactions
         function mousePressed() {
-            if (isMouseOverRectangle(charactersArea)) {
-                console.log("Character area clicked");
+            if (isMouseOverRectangle(character1Area)) {
+                console.log("Character 1 area clicked");
+            }
+            if (isMouseOverRectangle(character2Area)) {
+                console.log("Character 2 area clicked");
+            }
+            if (isMouseOverRectangle(character3Area)) {
+                console.log("Character 3 area clicked");
+            }
+            if (isMouseOverRectangle(character4Area)) {
+                console.log("Character 4 area clicked");
+            }
+            if (isMouseOverRectangle(character5Area)) {
+                console.log("Character 5 area clicked");
             }
             if (isMouseOverRectangle(pathArea)) {
                 console.log("Path area clicked");
             }
-            storefrontsArea.forEach((area, index) => {
-                if (isMouseOverRectangle(area)) {
-                    console.log("Storefront " + (index + 1) + " area clicked");
-                }
-            });
+            if (isMouseOverRectangle(storefront1Area)) {
+                console.log("Storefront 1 area clicked");
+            }
+            if (isMouseOverRectangle(storefront2Area)) {
+                console.log("Storefront 2 area clicked");
+            }
+            if (isMouseOverRectangle(storefront3Area)) {
+                console.log("Storefront 3 area clicked");
+            }
         }
     </script>
 </body>
