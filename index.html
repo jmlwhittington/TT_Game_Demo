@@ -44,6 +44,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px; /* Slightly larger button text */
+            margin-top: 20px; /* Added space above button */
         }
         .btn:hover {
             background-color: #005f5f;
@@ -69,7 +70,8 @@
         let character3Area = {x: 949, y: 417, w: 141, h: 298, message: "Character 3 is intrigued."};
         let character4Area = {x: 1106, y: 544, w: 125, h: 171, message: "Character 4 is mysterious."};
         let character5Area = {x: 1253, y: 515, w: 164, h: 342, message: "Character 5 looks strong."};
-        let pathArea = {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown."};
+        let path1Area = {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown."};
+        let path2Area = {x: 700, y: 50, w: 65, h: 50, message: "This path leads somewhere unknown."};
         let storefront1Area = {x: 445, y: 425, w: 125, h: 165, message: "Storefront 1 has goods for sale."};
         let storefront2Area = {x: 1000, y: 95, w: 100, h: 250, message: "Storefront 2 is closed."};
         let storefront3Area = {x: 500, y: 315, w: 130, h: 75, message: "Storefront 3 is welcoming you."};
@@ -114,7 +116,8 @@
             drawRectangle(character3Area, [255, 255, 255, 50]);
             drawRectangle(character4Area, [255, 255, 255, 50]);
             drawRectangle(character5Area, [255, 255, 255, 50]);
-            drawRectangle(pathArea, [255, 255, 255, 50]);
+            drawRectangle(path1Area, [255, 255, 255, 50]);
+            drawRectangle(path2Area, [255, 255, 255, 50]);
             drawRectangle(storefront1Area, [255, 255, 255, 50]);
             drawRectangle(storefront2Area, [255, 255, 255, 50]);
             drawRectangle(storefront3Area, [255, 255, 255, 50]);
@@ -125,7 +128,8 @@
             if (isMouseOverRectangle(character3Area)) drawRectangle(character3Area, [255, 255, 255, 100]);
             if (isMouseOverRectangle(character4Area)) drawRectangle(character4Area, [255, 255, 255, 100]);
             if (isMouseOverRectangle(character5Area)) drawRectangle(character5Area, [255, 255, 255, 100]);
-            if (isMouseOverRectangle(pathArea)) drawRectangle(pathArea, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(path1Area)) drawRectangle(path1Area, [255, 255, 255, 100]);
+            if (isMouseOverRectangle(path2Area)) drawRectangle(path2Area, [255, 255, 255, 100]);
             if (isMouseOverRectangle(storefront1Area)) drawRectangle(storefront1Area, [255, 255, 255, 100]);
             if (isMouseOverRectangle(storefront2Area)) drawRectangle(storefront2Area, [255, 255, 255, 100]);
             if (isMouseOverRectangle(storefront3Area)) drawRectangle(storefront3Area, [255, 255, 255, 100]);
@@ -151,7 +155,8 @@
             if (isMouseOverRectangle(character3Area)) showMessage(character3Area.message);
             if (isMouseOverRectangle(character4Area)) showMessage(character4Area.message);
             if (isMouseOverRectangle(character5Area)) showMessage(character5Area.message);
-            if (isMouseOverRectangle(pathArea)) showMessage(pathArea.message);
+            if (isMouseOverRectangle(path1Area)) showMessage(path1Area.message);
+            if (isMouseOverRectangle(path2Area)) showMessage(path2Area.message);
             if (isMouseOverRectangle(storefront1Area)) showMessage(storefront1Area.message);
             if (isMouseOverRectangle(storefront2Area)) showMessage(storefront2Area.message);
             if (isMouseOverRectangle(storefront3Area)) showMessage(storefront3Area.message);
