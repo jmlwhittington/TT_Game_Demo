@@ -109,7 +109,6 @@
             {x: 1106, y: 544, w: 125, h: 171, message: "Character 4 is mysterious.", visible: true},
             {x: 1253, y: 515, w: 164, h: 342, message: "Character 5 looks strong.", visible: true},
             {x: 635, y: 270, w: 220, h: 96, message: "This path leads somewhere unknown.", visible: true},
-            {x: 700, y: 50, w: 65, h: 50, message: "This path leads somewhere unknown.", visible: true};
             {x: 445, y: 425, w: 125, h: 165, message: "Storefront 1 has goods for sale.", visible: true},
             {x: 1000, y: 95, w: 100, h: 250, message: "Storefront 2 is closed.", visible: true},
             {x: 500, y: 315, w: 130, h: 75, message: "Storefront 3 is welcoming you.", visible: true}
@@ -148,6 +147,11 @@
 
         function draw() {
             background(bg); // Display the background image
+
+            // Display mouse coordinates at the top left corner
+            fill(255); // White color for text
+            textSize(16);
+            text("X: " + mouseX + " Y: " + mouseY, 10, 20); // Display coordinates for testing
 
             // Update motivation bar fill width and text label
             updateMotivationDisplay();
@@ -207,7 +211,7 @@
             // Update the width of the motivation fill bar
             document.getElementById('motivation-fill').style.width = (motivation * 10) + "%";
             // Update the motivation label text
-            document.getElementById('motivation-label').innerText = Motivation: ${motivation}/10;
+            document.getElementById('motivation-label').innerText = `Motivation: ${motivation}/10`;
         }
     </script>
 </body>
